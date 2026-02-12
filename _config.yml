@@ -1,0 +1,10 @@
+# Basic site settings
+title: Clockworks 2
+description: Complete Wiki for Clockworks 2
+theme: jekyll-theme-cayman
+
+# Optional settings
+show_downloads: false
+github:
+  is_project_page: true
+  repository_name: Clockworks-2
