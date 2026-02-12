@@ -1,7 +1,7 @@
 # Basic site settings
 title: Clockworks 2
 description: Complete Wiki for Clockworks 2
-theme: jekyll-theme-cayman
+theme: jekyll-theme-slate
 
 # Optional settings
 show_downloads: false
