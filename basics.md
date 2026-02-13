@@ -35,4 +35,4 @@ This should hopefully provide enough starting info as the game is designed for y
 - Think about your unlocks. Prioritize the most required objects you need.
 - Dont AFK for too long or else your entire factory might be burned to ash!
 
-[Back to Home](home)
+[Back to Home](index)
