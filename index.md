@@ -17,7 +17,7 @@ The Complete Wiki to Objects and different Functions.
 
 ## Other
 
-Write a brief description of your game here. What makes it special? What should players know?
+Clockworks 2 is a Grid-Based Factory Game based off of Satisfactory. [For Lore click this.](lore)
 
 ## Latest Updates
 
