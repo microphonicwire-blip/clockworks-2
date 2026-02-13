@@ -13,7 +13,7 @@ The Complete Wiki to Objects and different Functions.
 - [Core Mechanics](mechanics)
 - [Ores](ores)
 - [Objects](objects)
-- [Lore](Lore)
+- [Lore](lore)
 
 ## Other
 
