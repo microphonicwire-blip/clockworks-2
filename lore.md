@@ -109,29 +109,19 @@ The hand reaches for another ore deposit without permission. Swing. Collect. 8 o
 
 Task complete.
 
-New objective unlocked: construct rusty iron drill. Recipes flood the HUD. Schematics. Assembly instructions. Material requirements. The knowledge is already there—how to build this, how to build all of this. Drills and conveyors and smelters and refineries and factory floors stretching for kilometers.
+It's crude. Poorly designed. Misaligned gears. Weak structural supports. Exposed wiring near the drill bit. This thing looks like it was designed by someone who had five minutes and a severe problem with patience.
 
-The drill schematic expands, rotating slowly. It's crude. Poorly designed. Misaligned gears. Weak structural supports. Exposed wiring near the drill bit. This thing looks like it was designed by someone who had five minutes and a severe problem with patience.
-
-A footnote scrolls beneath the schematic. The drill has a 6% chance of catastrophic failure. Drill bit reversal during operation. Self-drilling. Structural explosion. Thermal ignition of nearby materials. Employee termination—literal. GLOBIL accepts no liability. Use at own risk. Failure to use will result in contract violation and immediate employment termination.
+A footnote scrolls beneath the menu. The drill has a 6% chance of catastrophic failure. Drill bit reversal during operation. Self-drilling. Structural explosion. Thermal ignition of nearby materials. Employee termination—literal. GLOBIL accepts no liability. Use at own risk. Failure to use will result in contract violation and immediate employment termination.
 
 Staring at the text. Reading it again. 6% chance to drill itself and explode. That's not good odds when you're talking about explosives near the face. Near flammable materials.
 
-The HUD asks: construct rusty iron drill? Yes or no?
-
-The finger hovers. Why is there hesitation? It's just a drill. Just the first step. Building is the purpose. That's what this existence is for.
-
-Isn't it?
-
-Yes is selected.
-
-The iron in the pocket dimension shifts, flows, rearranges. The molecular structures break down and reform. The iron materializes in the hands, already assembled, already complete. A drill about the size of a torso. Rusty brown metal. Gears grinding audibly even when stationary.
+The iron in the pocket dimension shifts, flows, rearranges. The molecular structures break down and reform. The iron materializes in the hands, already assembled, already complete. A drill about the size of you. Rusty brown metal. Gears grinding audibly even when stationary.
 
 It's ugly. It's dangerous. It's exactly what GLOBIL would make.
 
-The drill is placed on the ground. Activated.
+The drill is placed on the ground and automatically turns on.
 
-It roars to life, drill bit spinning, grinding into the sand and rock below. Ore pops out, gets sucked into the inventory automatically. The drill shakes. Rattles. Something loose inside, metal scraping metal.
+It roars to life, drill bit spinning, grinding into the sand and rock below. Ore pops out, moves off a belt and drops onto the ground. The drill shakes. Rattles. Something loose inside, metal scraping metal.
 
 And a thought surfaces, quiet and persistent: What is being built?
 
