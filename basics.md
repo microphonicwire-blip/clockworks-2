@@ -16,7 +16,7 @@ bleep blop
 - **V** - Crafting Menu
 - **C** - Inventory
 - **U** - Objectives
-- **?** - Configuring Menu
+- **B** - Configuring Menu
 
 ### First Tasks
 
