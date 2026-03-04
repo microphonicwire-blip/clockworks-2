@@ -42,7 +42,7 @@
         }
 
         fetchData();
-        setInterval(fetchData, 3000);
+        setInterval(fetchData, 500);
     </script>
 </body>
 </html>
