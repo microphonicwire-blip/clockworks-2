@@ -1,130 +1,275 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>WoS Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #111; color: #0f0; font-family: monospace; padding: 20px; }
-        h1 { color: #0f0; margin-bottom: 20px; }
-        #ships { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+
+        body {
+            background: #0d0d0d;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', monospace;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0; top: 0; bottom: 0;
+            width: 220px;
+            background: #141414;
+            border-right: 1px solid #222;
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            color: #555;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0 20px 15px;
+        }
+
         .ship-btn {
-            background: #1a1a1a; border: 1px solid #0f0; color: #0f0;
-            padding: 10px 20px; cursor: pointer; font-family: monospace;
-            font-size: 14px; border-radius: 4px;
+            display: block;
+            width: 100%;
+            background: none;
+            border: none;
+            color: #aaa;
+            text-align: left;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            border-left: 3px solid transparent;
+            transition: all 0.15s;
         }
-        .ship-btn:hover { background: #0f0; color: #111; }
-        .ship-btn.active { background: #0f0; color: #111; }
-        #panel { display: none; }
-        #panel-title {
-            font-size: 20px; margin-bottom: 15px;
-            display: flex; align-items: center; gap: 15px;
+
+        .ship-btn:hover { background: #1a1a1a; color: #fff; }
+
+        .ship-btn.active {
+            background: #1a1a1a;
+            color: #fff;
+            border-left-color: #4f9eff;
         }
+
+        .ship-dot {
+            display: inline-block;
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: #2ecc71;
+            margin-right: 8px;
+        }
+
+        .main {
+            margin-left: 220px;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .top-bar h1 {
+            font-size: 22px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .top-bar .subtitle {
+            font-size: 12px;
+            color: #444;
+            margin-top: 4px;
+        }
+
         .delete-btn {
-            background: none; border: 1px solid #f00; color: #f00;
-            padding: 4px 10px; cursor: pointer; font-family: monospace;
-            font-size: 12px; border-radius: 4px;
+            background: none;
+            border: 1px solid #c0392b;
+            color: #c0392b;
+            padding: 7px 16px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            border-radius: 5px;
+            transition: all 0.15s;
         }
-        .delete-btn:hover { background: #f00; color: #111; }
-        .row {
-            background: #1a1a1a; border: 1px solid #333;
-            padding: 12px 16px; margin-bottom: 8px; border-radius: 4px;
-            display: flex; gap: 20px;
+
+        .delete-btn:hover { background: #c0392b; color: #fff; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
         }
-        .row-key { color: #888; min-width: 150px; }
-        .row-value { color: #0f0; }
-        #no-ships { color: #555; }
+
+        .card {
+            background: #141414;
+            border: 1px solid #1f1f1f;
+            border-radius: 8px;
+            padding: 18px 20px;
+            transition: border-color 0.15s;
+        }
+
+        .card:hover { border-color: #333; }
+
+        .card-key {
+            font-size: 11px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .card-value {
+            font-size: 18px;
+            color: #e0e0e0;
+            word-break: break-word;
+        }
+
+        .last-update {
+            font-size: 11px;
+            color: #333;
+            margin-top: 25px;
+        }
+
+        .empty {
+            color: #333;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .no-selection {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+            color: #2a2a2a;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
-    <h1>🚀 WoS Dashboard</h1>
-    <div id="ships"><span id="no-ships">No ships online.</span></div>
-    <div id="panel">
-        <div id="panel-title">
-            <span id="panel-name"></span>
-            <button class="delete-btn" onclick="deleteShip()">Remove</button>
+
+<div class="sidebar">
+    <div class="sidebar-title">Ships</div>
+    <div id="ship-list"><div style="padding:0 20px;color:#333;font-size:13px">None online</div></div>
+</div>
+
+<div class="main">
+    <div id="no-selection" class="no-selection">← Select a ship</div>
+
+    <div id="panel" style="display:none">
+        <div class="top-bar">
+            <div>
+                <h1 id="panel-name"></h1>
+                <div class="subtitle" id="panel-update"></div>
+            </div>
+            <button class="delete-btn" onclick="deleteShip()">Remove Ship</button>
         </div>
-        <div id="values"></div>
+        <div class="grid" id="values"></div>
+        <div class="last-update" id="last-update"></div>
     </div>
+</div>
 
-    <script>
-        const URL = "https://cold-wildflower-4f31.microphonicwire.workers.dev";
-        let selectedShip = null;
-        let knownShips = [];
+<script>
+    const WORKER = "https://cold-wildflower-4f31.microphonicwire.workers.dev";
+    let selectedShip = null;
+    let knownShips = [];
 
-        async function fetchShips() {
-            try {
-                const res = await fetch(URL);
-                const ships = await res.json();
+    async function fetchShips() {
+        try {
+            const res = await fetch(WORKER);
+            const ships = await res.json();
+            const names = ships.map(s => s.name);
 
-                if (JSON.stringify(ships) !== JSON.stringify(knownShips)) {
-                    knownShips = ships;
-                    renderShipButtons();
-                }
-            } catch (e) {}
-        }
-
-        function renderShipButtons() {
-            const container = document.getElementById("ships");
-            const noShips = document.getElementById("no-ships");
-
-            container.innerHTML = "";
-
-            if (knownShips.length === 0) {
-                container.appendChild(noShips);
-                return;
+            if (JSON.stringify(names) !== JSON.stringify(knownShips)) {
+                knownShips = names;
+                renderSidebar(ships);
             }
-
-            knownShips.forEach(name => {
-                const btn = document.createElement("button");
-                btn.className = "ship-btn" + (name === selectedShip ? " active" : "");
-                btn.textContent = name;
-                btn.onclick = () => selectShip(name);
-                container.appendChild(btn);
-            });
 
             if (selectedShip && !knownShips.includes(selectedShip)) {
                 selectedShip = null;
                 document.getElementById("panel").style.display = "none";
+                document.getElementById("no-selection").style.display = "flex";
             }
+        } catch (e) {}
+    }
+
+    function renderSidebar(ships) {
+        const list = document.getElementById("ship-list");
+        list.innerHTML = "";
+
+        if (ships.length === 0) {
+            list.innerHTML = '<div style="padding:0 20px;color:#333;font-size:13px">None online</div>';
+            return;
         }
 
-        async function selectShip(name) {
-            selectedShip = name;
-            renderShipButtons();
-            document.getElementById("panel").style.display = "block";
-            document.getElementById("panel-name").textContent = name;
-            await fetchValues();
-        }
+        ships.forEach(ship => {
+            const btn = document.createElement("button");
+            btn.className = "ship-btn" + (ship.name === selectedShip ? " active" : "");
+            btn.innerHTML = `<span class="ship-dot"></span>${ship.name}`;
+            btn.onclick = () => selectShip(ship.name);
+            list.appendChild(btn);
+        });
+    }
 
-        async function fetchValues() {
-            if (!selectedShip) return;
-            try {
-                const res = await fetch(URL + "?name=" + encodeURIComponent(selectedShip));
-                const values = await res.json();
+    async function selectShip(name) {
+        selectedShip = name;
+        document.getElementById("no-selection").style.display = "none";
+        document.getElementById("panel").style.display = "block";
+        document.getElementById("panel-name").textContent = name;
+        renderSidebar(knownShips.map(n => ({ name: n })));
+        await fetchValues();
+    }
 
-                const container = document.getElementById("values");
-                container.innerHTML = "";
+    async function fetchValues() {
+        if (!selectedShip) return;
+        try {
+            const res = await fetch(WORKER + "?name=" + encodeURIComponent(selectedShip));
+            const data = await res.json();
+            if (!data.values) return;
 
-                Object.entries(values).forEach(([key, val]) => {
-                    const row = document.createElement("div");
-                    row.className = "row";
-                    row.innerHTML = `<span class="row-key">${key}</span><span class="row-value">${val}</span>`;
-                    container.appendChild(row);
-                });
-            } catch (e) {}
-        }
+            const container = document.getElementById("values");
+            container.innerHTML = "";
 
-        async function deleteShip() {
-            if (!selectedShip) return;
-            await fetch(URL + "?name=" + encodeURIComponent(selectedShip), { method: "DELETE" });
+            Object.entries(data.values).forEach(([key, val]) => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `<div class="card-key">${key}</div><div class="card-value">${val}</div>`;
+                container.appendChild(card);
+            });
+
+            if (data.updated_at) {
+                const t = new Date(data.updated_at);
+                document.getElementById("panel-update").textContent =
+                    "Last updated: " + t.toLocaleTimeString();
+            }
+        } catch (e) {}
+    }
+
+    async function deleteShip() {
+        if (!selectedShip) return;
+        try {
+            await fetch(WORKER + "?name=" + encodeURIComponent(selectedShip), { method: "DELETE" });
             selectedShip = null;
             document.getElementById("panel").style.display = "none";
+            document.getElementById("no-selection").style.display = "flex";
             await fetchShips();
+        } catch (e) {
+            console.error("Delete failed:", e);
         }
+    }
 
-        fetchShips();
-        setInterval(fetchShips, 2000);
-        setInterval(fetchValues, 500);
-    </script>
+    fetchShips();
+    setInterval(fetchShips, 3000);
+    setInterval(fetchValues, 2000);
+</script>
+
 </body>
 </html>
